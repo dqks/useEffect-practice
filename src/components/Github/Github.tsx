@@ -17,9 +17,6 @@ export type UserType = {
     followers: number
 }
 
-//todo: убирать/дизейблить кнопку find если поле не изменилось, и если оно изменяется то отрисовывать ее 1:39:43
-//todo: добавить крутилки
-
 export const Github = () => {
     const initialSearch = "it-kamasutra"
 
