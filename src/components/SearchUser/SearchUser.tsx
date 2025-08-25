@@ -1,21 +1,15 @@
 import {useEffect, useState} from "react";
-import axios from "axios";
-import type {SearchResult, SearchUserType} from "../Github/Github.tsx";
 
 type SearchUserProps = {
-    setUsers: (users: SearchUserType[]) => void
+    value: string,
+    setSearchTerm: (searchTerm: string) => void
 }
 
-export const SearchUser = ({setUsers} : SearchUserProps) => {
-    const [tempSearch, setTempSearch] = useState("it-kamasutra")
-    const [searchTerm, setSearchTerm] = useState("it-kamasutra");
-
+export const SearchUser = ({value, setSearchTerm} : SearchUserProps) => {
+    const [tempSearch, setTempSearch] = useState("")
     useEffect(() => {
-        axios.get<SearchResult>(`https://api.github.com/search/users?q=${searchTerm}`)
-        .then(res => {
-            setUsers(res.data.items);
-        })
-    }, [searchTerm, setUsers]);
+        setTempSearch(value)
+    }, [value]);
 
     return (
         <div>

@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {UserDetails} from "../UserDetails/UserDetails.tsx";
 import {SearchUser} from "../SearchUser/SearchUser.tsx";
-import {UserList} from "../UserList/UserList.tsx";
+import {UsersList} from "../UserList/UsersList.tsx";
 
 export type SearchUserType = {
     login: string
@@ -17,14 +17,21 @@ export type UserType = {
     followers: number
 }
 
+//todo: убирать/дизейблить кнопку find если поле не изменилось, и если оно изменяется то отрисовывать ее 1:39:43
+//todo: добавить крутилки
+
 export const Github = () => {
-    const [users, setUsers] = useState<SearchUserType[]>([]);
-    const [userDetails, setUserDetails] = useState<UserType | null>(null);
+    const initialSearch = "it-kamasutra"
+
+    const [searchTerm, setSearchTerm] = useState(initialSearch);
+    const [selectedUser, setSelectedUser] = useState<SearchUserType | null>(null);
+
     return (
         <div>
-            <SearchUser setUsers={setUsers}/>
-            <UserList users={users} setUserDetails={setUserDetails} />
-            <UserDetails userDetails={userDetails}/>
+            <SearchUser value={searchTerm} setSearchTerm={setSearchTerm} />
+            <button onClick={() => setSearchTerm(initialSearch)}>reset</button>
+            <UsersList searchTerm={searchTerm} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
+            <UserDetails userName={selectedUser?.login}/>
         </div>
     )
 }
