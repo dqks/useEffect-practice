@@ -1,9 +1,8 @@
 import classes from "../Github/Github.module.css";
-import type {UserType} from "../Github/Github.tsx";
 import {memo, useEffect, useState} from "react";
-import axios from "axios";
 import {Timer} from "../Timer/Timer.tsx";
 import {Preloader} from "../Preloader/Preloader.tsx";
+import {getUserDetails, type UserType} from "../../api/github-api.ts";
 
 type UserDetailsProps = {
     userName: string | undefined;
@@ -17,9 +16,9 @@ export const UserDetails = memo(({userName}: UserDetailsProps) => {
         if (userName) {
             setIsLoaded(false)
             document.title = userName
-            axios.get<UserType>(`https://api.github.com/users/${userName}`)
+            getUserDetails(userName)
             .then(res => {
-                setUserDetails(res.data)
+                setUserDetails(res)
                 setIsLoaded(true)
             })
         }

@@ -1,8 +1,8 @@
-import type {SearchResult, SearchUserType} from "../Github/Github.tsx";
+import type {SearchUserType} from "../Github/Github.tsx";
 import classes from "../Github/Github.module.css";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {Preloader} from "../Preloader/Preloader.tsx";
+import {searchUsers} from "../../api/github-api.ts";
 
 type UsersListProps = {
     searchTerm: string;
@@ -16,9 +16,8 @@ export const UsersList = ({searchTerm, selectedUser, setSelectedUser}: UsersList
 
     useEffect(() => {
         setIsLoaded(false);
-        axios.get<SearchResult>(`https://api.github.com/search/users?q=${searchTerm}`)
-        .then(res => {
-            setUsers(res.data.items);
+        searchUsers(searchTerm).then(res => {
+            setUsers(res.items);
             setIsLoaded(true);
         })
     }, [searchTerm, setUsers]);

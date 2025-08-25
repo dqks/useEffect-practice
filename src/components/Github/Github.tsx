@@ -7,15 +7,6 @@ export type SearchUserType = {
     login: string
     id: number
 }
-export type SearchResult = {
-    items: SearchUserType[]
-}
-export type UserType = {
-    login: string
-    id: number
-    avatar_url: string
-    followers: number
-}
 
 export const Github = () => {
     const initialSearch = "it-kamasutra"
